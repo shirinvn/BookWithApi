@@ -6,6 +6,5 @@ import kotlinx.parcelize.Parcelize
 
 data class Book(
     val title: String,
-    val caption: String,
-    val favorite: Boolean
+    val caption: String
 )

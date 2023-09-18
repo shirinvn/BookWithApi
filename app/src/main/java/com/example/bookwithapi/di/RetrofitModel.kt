@@ -17,6 +17,7 @@ import javax.inject.Singleton
 object RetrofitModel {
 
 
+
     @Singleton
     @Provides
     fun ProvideRetrofit(): Retrofit {

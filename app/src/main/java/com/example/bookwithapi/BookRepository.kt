@@ -20,19 +20,5 @@ class BookRepository @Inject constructor( private val bookService: BookService) 
     }
 
 
-    fun getBooks(callback: (List<Book>?, Throwable?) -> Unit) {
-        apiService.getAllBooks().enqueue(object : Callback<List<Book>> {
-            override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
-                if (response.isSuccessful) {
-                    callback(response.body(), null)
-                } else {
-                    callback(null, Exception("API request failed"))
-                }
-            }
 
-            override fun onFailure(call: Call<List<Book>>, t: Throwable) {
-                callback(null, t)
-            }
-        })
-    }
 }

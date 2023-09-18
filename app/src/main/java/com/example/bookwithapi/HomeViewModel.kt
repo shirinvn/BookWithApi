@@ -1,6 +1,5 @@
-package com.example.bookwithapi.ui.theme
+package com.example.bookwithapi
 
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bookwithapi.di.domain.GetBookUseCase
@@ -32,3 +31,5 @@ class HomeViewModel @Inject constructor(private val getBookUseCase: GetBookUseCa
         }
     }
 }
+
+
