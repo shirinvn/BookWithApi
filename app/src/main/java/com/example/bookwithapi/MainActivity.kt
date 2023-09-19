@@ -19,9 +19,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookwithapi.di.main.item.BookItem
 import com.example.bookwithapi.ui.theme.BookWithApiTheme
+
 
 const val BASE_URL="http://127.0.0.1:8080"
 
@@ -44,7 +46,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun HomeScreen() {
 
-        val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
+      //  val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
+
+       val homeViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[HomeViewModel::class.java]
+
         val books by homeViewModel.books.collectAsState()
 
 

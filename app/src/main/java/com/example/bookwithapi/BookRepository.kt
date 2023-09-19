@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class BookRepository @Inject constructor( private val bookService: BookService) {
+class BookRepository @Inject constructor(  val bookService: BookService) {
 
 
 

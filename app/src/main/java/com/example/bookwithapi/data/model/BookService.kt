@@ -3,9 +3,12 @@ package com.example.bookwithapi.data.model
 import com.example.bookwithapi.data.BookApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
 import javax.inject.Inject
 
-class BookService @Inject constructor(private val bookapi:BookApi) {
+class BookService @Inject constructor(retrofit: Retrofit) {
+
+     val bookapi: BookApi = retrofit.create(BookApi::class.java)
 
     suspend fun getAllBook():List<Book>
     {
@@ -16,3 +19,16 @@ class BookService @Inject constructor(private val bookapi:BookApi) {
 
     }
 }
+
+/*
+class BookService @Inject constructor(private val retrofit: Retrofit) {
+
+    private val bookApi: BookApi = retrofit.create(BookApi::class.java)
+
+    suspend fun getAllBook(): List<Book> {
+        return withContext(Dispatchers.IO) {
+            val books = bookApi.getAll()
+            books.body() ?: emptyList()
+        }
+    }
+}*/

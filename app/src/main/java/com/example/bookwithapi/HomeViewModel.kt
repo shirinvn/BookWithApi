@@ -12,14 +12,14 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val getBookUseCase: GetBookUseCase): ViewModel(){
+class HomeViewModel @Inject   constructor( val getBookUseCase: GetBookUseCase): ViewModel(){
     private val _books = MutableStateFlow(emptyList<BookItem>())
     val books: StateFlow<List<BookItem>> get()= _books
     init {
         getBooks()
     }
 
-    private fun getBooks(){
+     fun getBooks(){
         viewModelScope.launch {
             try
             {
