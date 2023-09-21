@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class BookService @Inject constructor(retrofit: Retrofit) {
 
-     val bookapi: BookApi = retrofit.create(BookApi::class.java)
+      val bookapi: BookApi = retrofit.create(BookApi::class.java)
 
     suspend fun getAllBook():List<Book>
     {
@@ -19,16 +19,3 @@ class BookService @Inject constructor(retrofit: Retrofit) {
 
     }
 }
-
-/*
-class BookService @Inject constructor(private val retrofit: Retrofit) {
-
-    private val bookApi: BookApi = retrofit.create(BookApi::class.java)
-
-    suspend fun getAllBook(): List<Book> {
-        return withContext(Dispatchers.IO) {
-            val books = bookApi.getAll()
-            books.body() ?: emptyList()
-        }
-    }
-}*/

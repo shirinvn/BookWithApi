@@ -25,7 +25,7 @@ import com.example.bookwithapi.di.main.item.BookItem
 import com.example.bookwithapi.ui.theme.BookWithApiTheme
 
 
-const val BASE_URL="http://127.0.0.1:8080"
+const val BASE_URL="http://192.168.56.01:8080/"
 
 
 
@@ -46,9 +46,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun HomeScreen() {
 
-      //  val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
+       val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
 
-       val homeViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[HomeViewModel::class.java]
+      // val homeViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[HomeViewModel::class.java]
 
         val books by homeViewModel.books.collectAsState()
 

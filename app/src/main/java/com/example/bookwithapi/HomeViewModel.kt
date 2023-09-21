@@ -19,7 +19,7 @@ class HomeViewModel @Inject   constructor( val getBookUseCase: GetBookUseCase): 
         getBooks()
     }
 
-     fun getBooks(){
+     private fun getBooks(){
         viewModelScope.launch {
             try
             {
