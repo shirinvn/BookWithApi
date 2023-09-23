@@ -1,11 +1,16 @@
 package com.example.bookwithapi
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,18 +19,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.bookwithapi.di.main.item.BookItem
+
 import com.example.bookwithapi.ui.theme.BookWithApiTheme
 
 
-const val BASE_URL="http://192.168.56.01:8080/"
 
 
 
@@ -35,66 +42,68 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BookWithApiTheme {
-                    HomeScreen()
-
+                BookView()
             }
         }
-
-
-    }
-
-    @Composable
-    fun HomeScreen() {
-
-       val homeViewModel = viewModel(modelClass = HomeViewModel::class.java)
-
-      // val homeViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[HomeViewModel::class.java]
-
-        val books by homeViewModel.books.collectAsState()
-
-
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-
-            items(books) { books: BookItem ->
-
-                BookCard(book = books)
-
-
-            }
-        }
-
-    }
-
-    @Composable
-    fun BookCard(book: BookItem) {
-
-        Card(
-
-            shape = RoundedCornerShape(5.dp),
-            modifier = Modifier
-                .padding(top = 5.dp, bottom = 5.dp, start = 10.dp, end = 10.dp)
-                .fillMaxSize()
-
-        ) {
-            Column(modifier = Modifier.padding(10.dp)) {
-
-                Text(text = book.title, fontWeight = FontWeight.Bold)
-                Text(text = book.caption, maxLines = 2, overflow = TextOverflow.Ellipsis)
-
-            }
-
-        }
-
     }
 
 
 
-
-    @Preview(showBackground = true)
     @Composable
-    fun GreetingPreview() {
-        BookWithApiTheme {
-            HomeScreen()
+     fun BookView() {
+
+        val viewModel = ViewModelProvider(this)[BookViewModel::class.java]
+        viewModel.getAllBookSRequest()
+        var bookList by remember { mutableStateOf(emptyList<BookResponceModel>()) }
+
+
+        Column(modifier = Modifier.fillMaxSize()) {
+            BookView(bookList = bookList)
+
+        }
+
+        viewModel.bookList.observe(this) {books ->
+            bookList=books
+
+        }
+
+
+        viewModel.postListError.observe(this) {isError ->
+            isError?.let{
+
+                Log.e("3636",isError)
+            }
+
+        }
+
+
+        viewModel.loading.observe(this) {isLoading ->
+
+
+            Log.e("3636",isLoading.toString())
+
+
+        }
+    }
+
+
+    @Composable
+    fun BookView(bookList: List<BookResponceModel>){
+        LazyColumn(modifier = Modifier.fillMaxSize()){
+            items(bookList){ book->
+                Column(modifier = Modifier
+                    .padding(12.dp)
+                    .background(Color.Red)
+                    .size(200.dp))
+                {
+                    Text(text = book.title, color  = Color.White)
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text(text = book.caption, color= Color.White)
+
+
+
+                }
+            }
         }
     }
 
