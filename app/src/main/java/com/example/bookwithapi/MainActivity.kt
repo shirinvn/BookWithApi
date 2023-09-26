@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +46,6 @@ class MainActivity : ComponentActivity() {
     }
 
 
-@Preview
     @Composable
      fun MainBookView() {
 
@@ -85,8 +87,12 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun BookView(bookList: List<BookResponceModel>){
-        LazyColumn(modifier = Modifier.fillMaxSize()){
-            items(bookList){ book->
+        LazyVerticalGrid(columns = GridCells.Adaptive(110.dp)
+            , modifier = Modifier.fillMaxSize(),
+            content = {
+                items(bookList){book->
+
+                BoxCard(image = R.drawable.ic_launcher_foreground, title ="salam" )
                 Column(modifier = Modifier
                     .padding(12.dp)
                     .background(Color.Red)
@@ -100,7 +106,7 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
-        }
+            })
     }
 
 
@@ -109,9 +115,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun HomeView(){
 
-
         BoxCard(image = R.drawable.ic_launcher_foreground, title = "اسم کتاب")
-
 
     }
 
