@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
                         MainBookView(navController = navController)
                     }
                     composable("details") {
-                        BookScreen()
+                        BookCaptionScreen()
                     }
                 }
 
@@ -76,6 +76,46 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+
+    @Composable
+    fun BookCaptionScreen(){
+
+        val viewModel = ViewModelProvider(this)[BookViewModel::class.java]
+        viewModel.getAllBookSRequest()
+        var bookList by remember { mutableStateOf(emptyList<BookResponceModel>()) }
+
+
+
+        Column(modifier = Modifier.fillMaxSize()) {
+            BookScreen(bookList = bookList)
+        }
+
+        viewModel.bookList.observe(this) {books ->
+            bookList=books
+
+        }
+
+
+        viewModel.postListError.observe(this) {isError ->
+            isError?.let{
+
+                Log.e("3636",isError)
+            }
+
+        }
+
+
+        viewModel.loading.observe(this) {isLoading ->
+
+
+            Log.e("3636",isLoading.toString())
+
+
+        }
+
+
+
+    }
 
     @Composable
      fun MainBookView(navController: NavHostController) {
@@ -115,42 +155,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-
-
-    @Composable
-    fun BoxCard(image:Int, title:String, navController:NavHostController ){
-
-
-        Card(modifier = Modifier
-            .height(190.dp)
-            .width(100.dp)
-            .clip(shape = RoundedCornerShape(10.dp))
-            .padding(15.dp)
-            .clickable {
-                // Navigate to the details screen when the card is clicked
-                navController.navigate("details")
-            }
-            , colors = CardDefaults.cardColors(
-                containerColor = Color.Red,
-                contentColor = Color.White
-            )) {
-
-            Column(modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally) {
-
-
-                Image(painter = painterResource(id = image),
-                    contentDescription = "",
-                    modifier = Modifier.height(130.dp),
-                    contentScale = ContentScale.FillWidth)
-
-                Text(text = title, color = Color.White)
-            }
-
-        }
-
-    }
-
     @Composable
     fun BookView(bookList: List<BookResponceModel>, navController: NavHostController){
         LazyVerticalGrid(columns = GridCells.Adaptive(150.dp)
@@ -158,28 +162,11 @@ class MainActivity : ComponentActivity() {
             content = {
                 items(bookList){book->
 
-
-
                     BoxCard(image = R.drawable.pic1, title =book.title, navController )
-
-                  /*  Text(text = book.title, color  = Color.White)
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(text = book.caption, color= Color.White)*/
 
             }
             })
     }
-
-
-/*
-
-    @Preview
-    @Composable
-    fun HomeView(){
-
-
-    }
-*/
 
 }
 
