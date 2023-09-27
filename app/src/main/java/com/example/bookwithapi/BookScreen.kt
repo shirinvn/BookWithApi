@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 
 @Preview
 @Composable
-fun CaptionScreen(){
+fun BookScreen(){
 
     
     Surface(modifier = Modifier
