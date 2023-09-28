@@ -27,36 +27,37 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
 
+
 @Composable
 fun BoxCard(image:Int, title:String, navController:NavHostController ){
 
 
-        Card(modifier = Modifier
-            .height(190.dp)
-            .width(100.dp)
-            .clip(shape = RoundedCornerShape(10.dp))
-            .padding(15.dp)
-            .clickable {
-                // Navigate to the details screen when the card is clicked
-                navController.navigate("details")
-            }
-            , colors = CardDefaults.cardColors(
-                containerColor = Color.Red,
-                contentColor = Color.White
-            )) {
+    Card(modifier = Modifier
+        .height(190.dp)
+        .width(100.dp)
+        .clip(shape = RoundedCornerShape(10.dp))
+        .padding(15.dp)
+        .clickable {
+            // Navigate to the details screen when the card is clicked
+            navController.navigate("details")
+        }
+        , colors = CardDefaults.cardColors(
+            containerColor = Color.Red,
+            contentColor = Color.White
+        )) {
 
-            Column(modifier = Modifier.fillMaxSize(),
+        Column(modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
 
 
-                Image(painter = painterResource(id = image),
-                    contentDescription = "",
-                    modifier = Modifier.height(130.dp),
+            Image(painter = painterResource(id = image),
+                contentDescription = "",
+                modifier = Modifier.height(130.dp),
                 contentScale = ContentScale.FillWidth)
 
-                Text(text = title, color = Color.White)
-            }
-        
+            Text(text = title, color = Color.White)
+        }
+
     }
 
 }

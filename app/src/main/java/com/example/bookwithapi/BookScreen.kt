@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
@@ -28,12 +29,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
+
+
+
 @Composable
 fun BookScreen(bookList: List<BookResponceModel>){
-    
+
     Surface(modifier = Modifier
         .fillMaxSize(),
-        ) {
+    ) {
 
         Column(modifier = Modifier
             .fillMaxSize()
@@ -49,30 +53,30 @@ fun BookScreen(bookList: List<BookResponceModel>){
                 Text(text = "اسم کتاب",
                     modifier = Modifier
                         .padding(end = 15.dp)
-                , fontSize = 22.sp)
+                    , fontSize = 22.sp)
             }
 
 
             LazyColumn(modifier = Modifier.size(400.dp),
-            content = {
-                items(bookList){book->
+                content = {
+                    items(bookList){book->
 
 
-                    Image(painter = painterResource(id = R.drawable.pic1)
-                        , contentDescription = "",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(210.dp),
-                        contentScale = ContentScale.FillWidth)
+                        Image(painter = painterResource(id = R.drawable.pic1)
+                            , contentDescription = "",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(210.dp),
+                            contentScale = ContentScale.FillWidth)
 
-                    Text(text = book.caption,
-                        modifier = Modifier
-                            .padding(end = 15.dp, top = 15.dp),
-                        fontSize = 22.sp, color = Color.White
-                    )
-                }
+                        Text(text = book.caption,
+                            modifier = Modifier
+                                .padding(end = 15.dp, top = 15.dp),
+                            fontSize = 22.sp, color = Color.White
+                        )
+                    }
 
-            })
+                })
 
 
 
@@ -82,7 +86,3 @@ fun BookScreen(bookList: List<BookResponceModel>){
     }
 
 }
-
-
-
-
