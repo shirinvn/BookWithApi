@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
         viewModel.postListError.observe(this) {isError ->
             isError?.let{
 
-                Log.e("3636",isError)
+                Log.e("36356",isError)
             }
 
         }
@@ -143,7 +143,7 @@ class MainActivity : ComponentActivity() {
         viewModel.loading.observe(this) {isLoading ->
 
 
-            Log.e("3636",isLoading.toString())
+            Log.e("36356",isLoading.toString())
 
 
         }
