@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 import com.example.bookwithapi.ui.theme.BookWithApiTheme
 
@@ -39,15 +41,31 @@ class MainActivity : ComponentActivity() {
             BookWithApiTheme {
 
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "home") {
 
+
+                NavHost(navController = navController, startDestination = "home") {
                     composable("home") {
                         MainBookView(navController = navController)
                     }
-                    composable("details") {
-                        BookCaptionScreen()
+                    composable(
+                        route = "details/{title}",
+                        arguments = listOf(navArgument("title") { type = NavType.StringType })
+                    ) { backStackEntry ->
+                        val bookTitle = backStackEntry.arguments?.getString("title")
+                        BookCaptionScreen(bookTitle)
                     }
                 }
+
+
+                /*        NavHost(navController = navController, startDestination = "home") {
+
+                            composable("home") {
+                                MainBookView(navController = navController)
+                            }
+                            composable("details") {
+                                BookCaptionScreen()
+                            }
+                        }*/
 
 
 
@@ -113,13 +131,17 @@ class MainActivity : ComponentActivity() {
 
 
     @Composable
-    fun BookCaptionScreen(){
+    fun BookCaptionScreen(bookTitle:String?){
 
-        val viewModel = ViewModelProvider(this)[BookViewModel::class.java]
+        val viewModel = ViewModelProvider(this).get(BookViewModel::class.java)
+
+      //  val viewModel = ViewModelProvider(this)[BookViewModel::class.java]
         viewModel.getAllBookSRequest()
         var bookList by remember { mutableStateOf(emptyList<BookResponceModel>()) }
 
-
+        if (!bookTitle.isNullOrEmpty()) {
+            viewModel.getCaptionReq(bookTitle)
+        }
 
         Column(modifier = Modifier.fillMaxSize()) {
             BookScreen(bookList = bookList)

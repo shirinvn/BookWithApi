@@ -30,8 +30,6 @@ import androidx.compose.ui.unit.sp
 
 
 
-
-
 @Composable
 fun BookScreen(bookList: List<BookResponceModel>){
 

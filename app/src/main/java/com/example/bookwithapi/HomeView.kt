@@ -38,8 +38,10 @@ fun BoxCard(image:Int, title:String, navController:NavHostController ){
         .clip(shape = RoundedCornerShape(10.dp))
         .padding(15.dp)
         .clickable {
-            // Navigate to the details screen when the card is clicked
-            navController.navigate("details")
+
+            navController.navigate("details/${title}")
+
+            //   navController.navigate("details")
         }
         , colors = CardDefaults.cardColors(
             containerColor = Color.Red,
