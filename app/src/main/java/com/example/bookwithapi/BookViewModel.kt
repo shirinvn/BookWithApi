@@ -15,12 +15,9 @@ import kotlinx.coroutines.withContext
 
 class BookViewModel : ViewModel() {
 
-    val selectedBook = MutableLiveData<BookResponceModel?>()
-
-
 
     val bookList= MutableLiveData<List<BookResponceModel>>()
-    val bookCaption= MutableLiveData<List<BookResponceModel>>()
+    val bookCaption= MutableLiveData<BookResponceModel>()
     val postListError= MutableLiveData<String?>()
     val loading= MutableLiveData<Boolean>()
 
@@ -49,14 +46,6 @@ class BookViewModel : ViewModel() {
                 } } } }
 
 
-        fun setSelectedBook(book: BookResponceModel) {
-            selectedBook.value = book
-        }
-
-
-
-
-
 
     fun getCaptionReq(title:String){
         loading.value= true
@@ -65,7 +54,7 @@ class BookViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
 
 
-            val response = ApiService.api.getCaptionItem(title  )
+            val response = ApiService.api.getCaptionItem(title )
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful && response.body() != null) {

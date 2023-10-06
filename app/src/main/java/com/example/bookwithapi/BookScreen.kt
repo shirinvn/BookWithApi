@@ -27,11 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+/*
 
 
 
 @Composable
-fun BookScreen(bookList: List<BookResponceModel>){
+fun BookScreen(book :BookResponceModel){
 
     Surface(modifier = Modifier
         .fillMaxSize(),
@@ -41,46 +42,48 @@ fun BookScreen(bookList: List<BookResponceModel>){
             .fillMaxSize()
             .background(Color.Red)) {
 
-            TopAppBar(modifier = Modifier
-                .fillMaxWidth()
-                .height(65.dp)) {
+            TopAppBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(65.dp)
+            ) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
 
-                Text(text = "اسم کتاب",
+                Text(
+                    text = book.title,
                     modifier = Modifier
-                        .padding(end = 15.dp)
-                    , fontSize = 22.sp)
+                        .padding(end = 15.dp), fontSize = 22.sp
+                )
             }
 
 
-            LazyColumn(modifier = Modifier.size(400.dp),
-                content = {
-                    items(bookList){book->
+            Column(modifier = Modifier.size(400.dp)) {
 
+                Image(
+                    painter = painterResource(id = R.drawable.pic1), contentDescription = "",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(210.dp),
+                    contentScale = ContentScale.FillWidth
+                )
 
-                        Image(painter = painterResource(id = R.drawable.pic1)
-                            , contentDescription = "",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(210.dp),
-                            contentScale = ContentScale.FillWidth)
+                Text(
+                    text = book.caption,
+                    modifier = Modifier
+                        .padding(end = 15.dp, top = 15.dp),
+                    fontSize = 22.sp, color = Color.White
+                )
+            }
 
-                        Text(text = book.caption,
-                            modifier = Modifier
-                                .padding(end = 15.dp, top = 15.dp),
-                            fontSize = 22.sp, color = Color.White
-                        )
-                    }
-
-                })
+        }
 
 
 
 
 
         }
-    }
 
 }
+*/
