@@ -153,7 +153,7 @@ class MainActivity : ComponentActivity() {
         viewModel.getCaptionReq(bookTitle)
     //    var book by remember{   mutableStateOf(viewModel.bookCaption.value) }
 
-        var book by remember { mutableStateOf(BookResponceModel("njnjunu","unuhu") ) }
+        var book by remember { mutableStateOf(BookResponceModel(bookTitle,"unuhu") ) }
 
        /* Column(modifier = Modifier.fillMaxSize()) {
             book?.let {
