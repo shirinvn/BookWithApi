@@ -36,8 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 
 import com.example.bookwithapi.ui.theme.BookWithApiTheme
-
-
+import kotlinx.coroutines.flow.emptyFlow
 
 
 class MainActivity : ComponentActivity() {
@@ -64,21 +63,6 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-
-
-                /*        NavHost(navController = navController, startDestination = "home") {
-
-                            composable("home") {
-                                MainBookView(navController = navController)
-                            }
-                            composable("details") {
-                                BookCaptionScreen()
-                            }
-                        }*/
-
-
-
-
             }
         }
     }
@@ -131,10 +115,6 @@ class MainActivity : ComponentActivity() {
             content = {
                 items(bookList){book->
 
-                     /*   BoxCard(image = R.drawable.pic1, title = book.title) {
-                            navController.navigate("details/${book.title}")
-                        }*/
-
                     BoxCard(image = R.drawable.pic1, title =book.title, navController )
 
 
@@ -148,31 +128,20 @@ class MainActivity : ComponentActivity() {
     fun BookCaptionScreen(bookTitle:String){
 
         val viewModel = ViewModelProvider(this)[BookViewModel::class.java]
-
-     //   viewModel.getAllBookSRequest()
         viewModel.getCaptionReq(bookTitle)
-    //    var book by remember{   mutableStateOf(viewModel.bookCaption.value) }
 
-        var book by remember { mutableStateOf(BookResponceModel(bookTitle, viewModel.bookCaption.value!!.caption) ) }
+        val caption= viewModel.bookCaption.value!!.caption
+        var book by remember { mutableStateOf(BookResponceModel(bookTitle, caption) ) }
 
-       /* Column(modifier = Modifier.fillMaxSize()) {
-            book?.let {
-                BookScreen(book = it) }
-        }*/
         Column(modifier = Modifier.fillMaxSize()) {
-            book?.let { BookScreen(book = it) }
-            book?.title
-            book?.caption
+            book.let { BookScreen(book = it) }
+
         }
-
-
 
         viewModel.bookCaption.observe(this) {books ->
             book=books
 
         }
-
-
         viewModel.postListError.observe(this) {isError ->
             isError?.let{
 
@@ -180,7 +149,6 @@ class MainActivity : ComponentActivity() {
             }
 
         }
-
         viewModel.loading.observe(this) {isLoading ->
 
 

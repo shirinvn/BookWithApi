@@ -1,5 +1,6 @@
 package com.example.bookwithapi
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -17,7 +18,6 @@ class BookViewModel : ViewModel() {
 
 
     val bookList= MutableLiveData<List<BookResponceModel>>()
-    val bookCaption= MutableLiveData<BookResponceModel>()
     val postListError= MutableLiveData<String?>()
     val loading= MutableLiveData<Boolean>()
 
@@ -46,30 +46,24 @@ class BookViewModel : ViewModel() {
                 } } } }
 
 
-
+    val bookCaption= MutableLiveData<BookResponceModel>()
     fun getCaptionReq(title:String){
         loading.value= true
         val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
             throwable.printStackTrace() }
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-
-
             val response = ApiService.api.getCaptionItem(title )
-
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful && response.body() != null) {
                     response.body()?.let { Captions ->
                         bookCaption.value = Captions
                         postListError.value = null
                         loading.value = false
-
                     }
                 } else {
                     postListError.value = response.message()
                     loading.value = false
                 }
-
-
             }
 
         }

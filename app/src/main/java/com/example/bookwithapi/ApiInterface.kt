@@ -12,7 +12,7 @@ interface ApiInterface {
     @GET("/book")
     suspend fun getAll(): Response<List<BookResponceModel>>
 
-    @GET("/book{title}")
+    @GET("/book")
     suspend fun getCaptionItem( @Query("title") title:String): Response<BookResponceModel>
 
 
